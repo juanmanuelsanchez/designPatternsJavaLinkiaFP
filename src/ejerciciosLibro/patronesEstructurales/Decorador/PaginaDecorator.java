@@ -1,4 +1,4 @@
-package patronesEstructurales.Decorador;
+package ejerciciosLibro.patronesEstructurales.Decorador;
 
 public class PaginaDecorator extends Component {
     protected Component componente;
