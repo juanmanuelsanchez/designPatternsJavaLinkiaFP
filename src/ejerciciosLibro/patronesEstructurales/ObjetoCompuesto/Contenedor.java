@@ -3,18 +3,20 @@ package ejerciciosLibro.patronesEstructurales.ObjetoCompuesto;
 import java.util.ArrayList;
 
 public class Contenedor implements Componente {
-    private String nombre;
+    private String nombre, descripcion;
     private ArrayList<Componente> componentes;
 
-    public Contenedor(String nombre){
+    public Contenedor(String nombre, String descripcion){
 
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.componentes = new ArrayList<Componente>();
 
     }
 
     public Contenedor(){
         this.nombre = "";
+        this.descripcion = "";
         this.componentes = new ArrayList<Componente>();
     }
 
@@ -38,6 +40,14 @@ public class Contenedor implements Componente {
         return this.componentes.get(index);
     }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
     public void Add (Componente componente){
         this.componentes.add(componente);
     }
@@ -58,6 +68,12 @@ public class Contenedor implements Componente {
         this.componentes.remove(index);
     }
 
+    public void imprimeDetalles(){
+        System.out.println("\t" + this.getNombre() + ", " + this.getDescripcion());
+        for (Componente componente: componentes) {
+            componente.imprimeDetalles();
+        }
+    }
 
     @Override
     public void pintar(String color) {
@@ -65,6 +81,6 @@ public class Contenedor implements Componente {
         for (Componente componente: componentes){
             componente.pintar(color);
         }
-
     }
+
 }
