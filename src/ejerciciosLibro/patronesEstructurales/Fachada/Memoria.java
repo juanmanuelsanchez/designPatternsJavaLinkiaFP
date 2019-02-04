@@ -9,7 +9,12 @@ public class Memoria {
     private static PosicionMemoria posicionMemoria = posiciones[0];
     private static PosicionMemoria posicionMemoriaUltimaCarga;
 
-    public Memoria() throws OutOfMemoryException{
+
+    Memoria() throws OutOfMemoryException{
+        //Introducimos aleatoriamente una posición ocupada
+        //por un proceso para dar más veracidad a la aplicación.
+        int p = (int)(Math.random() * longitud);
+        posiciones[p] = new PosicionMemoria(p);
         for (int i = 0; i < posiciones.length; i++){
             if (posiciones[i] == null){
                 PosicionMemoria temp = new PosicionMemoria(i);
@@ -19,9 +24,12 @@ public class Memoria {
                 setPosicionMemoria(temp);
                 setOpen(true);
                 break;
+            }else {
+                setOpen(false);
             }
         }
         if (!isOpen()){
+            //Simulación de stack memory overflow
             throw new OutOfMemoryException(this.printErrorMessage());
         }
     }
@@ -30,9 +38,7 @@ public class Memoria {
         this.posicion = posicion;
     }
 
-    private int getPosicion() {
-        return posicion;
-    }
+    int getPosicion() { return this.posicion; }
 
     private PosicionMemoria getPosicionMemoriaUltimaCarga() {
         return Memoria.posicionMemoriaUltimaCarga;
@@ -44,7 +50,7 @@ public class Memoria {
         }
     }
 
-    public void cargar(String direccion){
+    void cargar(String direccion){
         System.out.println("\t" + "La memoria en la posición " + this.getPosicion()  +  " ha cargado el archivo en la dirección: " + direccion);
         posiciones[this.getPosicion()] = null;
     }
